@@ -92,6 +92,7 @@ page.get_by_role("checkbox",name="全部",checked=True).count()
 案列：任务看板中有多个新建，无法定位
 page.locator(".panel").filter(has_text="维修").get_by_text("新建").click()
 expect(page.get_by_text("新建任务")).to_be_visible()  #断言是否真的触发了新建
+是否可见：to_be_visible()
 
 19、根据文本定位
 文本定位(包含，如果是精准定位要加exact=True）
@@ -107,3 +108,22 @@ page.get_by_label("项目").fill("测试")
 
 21、回车查询
 page.keyboard.press('Enter')
+
+
+22、css选择器
+id：locator.(""). 
+class： 
+
+23、xpath选择器
+单斜杠/ 代表是层级
+双斜杠// 代表是全局
+
+//input[@id='hahahaha']
+只有属性才需要@
+
+像网页中某个值，是div的
+//div[text()="关键词"]
+
+如果是包含关系，可以用contains
+//div[contains(text(),"关键词")]
+
