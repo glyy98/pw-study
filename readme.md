@@ -188,5 +188,5 @@ page.get_by_text("关键词").locator("visible=true")  #过滤掉我们看不见
 27、nth 
 page.locator('[@aria-lable="查看更多"]').nth(0) 和first同理  nth(-1)=last
 
-28、frame
+28、frame 嵌套
  
