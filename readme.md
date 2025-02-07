@@ -22,10 +22,11 @@ page.locator（".avatar-img"）
 
 3、大写的一般是类的名称，小写的是函数或者方法
 
-4、断言
+4、断言 expect（软断言，会自动等待）  assert（判断逻辑，断言失败立即终止测试）
 可以采用getbytext
 expect(page.get_by_text("状态监视")).to_be_visible()  判断页面中是否有"状态监视"这四个字
 同理，可以作为判断是否新增成功，弹出的“提交成功”弹窗
+toHaveCount(1)，断言某个元素的数量正好等于1
 
 5、将跑用例录屏
 在pytest.ini中加参数   --video=on
@@ -113,6 +114,8 @@ page.keyboard.press('Enter')
 22、css选择器
 id：locator.(""). 
 class： 
+如果某个div class="6666"
+css可以直接用.6666，在html中找到
 
 23、xpath选择器
 单斜杠/ 代表是层级
@@ -127,3 +130,63 @@ class：
 如果是包含关系，可以用contains
 //div[contains(text(),"关键词")]
 
+逻辑运算找元素
+1、并列
+//div[@data][text()='']
+
+2、不包含 not
+
+3、管道符 |
+可以让两个元素都被找到
+
+##轴定位
+1、parent，父节点
+如果一个大框里有很多子类，你先找到了子类，然后用/parent::div，就可以找到这个子类上面紧邻的一个div
+//div[@class=]/parent::div
+
+2、ancestor，祖先节点
+除了能找到父节点，也能找的父节点的父节点
+//div[@class=]/ancestor::div
+
+3、following，找到当前元素之后的所有节点，位置比它低
+//div[@class=]/following::*，所有的之后节点都会算上
+
+4、following-sibling，找到当前元素之后的所有兄弟节点，就是在同个父节点下的
+例子：li一般有很多个，如果用following-sibling，就能找到同个模块下所有的li
+
+//li[@data-index="5"]/following-sibling::li
+
+5、preceding ，找到当前元素之前的节点，位置比他高
+6、preceding-sibling，和following同理，找到元素之前的兄弟节点
+
+7、last(),用在兄弟节点较多的情况，寻找倒数第一个元素
+//li[@aria-lable="查看更多"][last()]，如果是倒数第二个[last()-1],没有first，直接用[1]
+
+
+
+24、filter过滤器
+如果按照行，提取相同元素，多行的情况，可以提取关键词
+page.locator('共同元素').filter(has_text="工业品") #这时候是把含有工业品那一行获取到
+.get_by_role("link")#用角色找link .all_text_contents #这是个求值得到link这个列表的内容 [-1]=="关键词"#找到这个列表的最后一个
+
+#has_not_text  
+#has  包含那个locator   has=page.locator("//a[text()='关键词']") 
+
+25、and or  visible
+page.get_by_text("关键词").and_(page.get_by_role("link")) #既满足前半部分，又满足后半部分
+
+page.get_by_text("关键词").and_(page.get_by_role("link")).or_(page.locator("#qq"))
+拆分开：locator1=page.get_by_text("关键词").and_(page.get_by_role("link"))
+       locator2=or_(page.locator("#qq"))
+意思就是，先找1，如果没有就找2
+如果是用是否可见，is_to_be_visible,其中一个找到就是true
+如果是用to_have_count,返回最终匹配到的 Locator 的数量。
+
+26、visible 可见的  想定位显示的
+page.get_by_text("关键词").locator("visible=true")  #过滤掉我们看不见的元素
+
+27、nth 
+page.locator('[@aria-lable="查看更多"]').nth(0) 和first同理  nth(-1)=last
+
+28、frame
+ 
