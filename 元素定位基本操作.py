@@ -189,4 +189,9 @@ page.get_by_text("关键词").locator("visible=true")  #过滤掉我们看不见
 page.locator('[@aria-lable="查看更多"]').nth(0) 和first同理  nth(-1)=last
 
 28、frame 嵌套
- 
+
+baidu=page.frame(url='')  #返回的是page对象,可以直接操作，click里面可以直接传selector
+baidu.fill(selector:"",value:"")
+page.frame_locator("").get_by_text("").click()
+#返回的是(frame类型的)locator，这个是个定位，不可以操作，只能再跟locator去操作
+
