@@ -198,3 +198,10 @@ baidu.fill(selector:"",value:"")
 page.frame_locator("").get_by_text("").click()
 #返回的是(frame类型的)locator，这个是个定位，不可以操作，只能再跟locator去操作
 
+29、如果要引入其他文件夹中的文件中的类，需要在那个文件夹新建个文件：__init__.py
+目的是为了让Python知道，这个文件夹是个包
+然后还要在用例中，添加以下代码
+import sys
+import os
+# 把项目根目录加入到 sys.path 中
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
