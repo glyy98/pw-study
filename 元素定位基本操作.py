@@ -172,6 +172,9 @@ page.locator('共同元素').filter(has_text="工业品") #这时候是把含有
 #has_not_text  
 #has  包含那个locator   has=page.locator("//a[text()='关键词']") 
 
+self.page.locator(f'li:has-text("{filter_value}")').click()
+#使用locator方法，定位列表中的选项，将参数filter_value插入字符串中，生成一个css选择器
+
 25、and or  visible
 page.get_by_text("关键词").and_(page.get_by_role("link")) #既满足前半部分，又满足后半部分
 
